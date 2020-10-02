@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Paint</string>
+    <string name="title">Paint</string>
+    <string name="button">Start</string>
 </resources>
