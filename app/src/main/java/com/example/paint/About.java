@@ -1,6 +1,7 @@
 package com.example.paint;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
@@ -10,5 +11,11 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.about_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle("About");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }
