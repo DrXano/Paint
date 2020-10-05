@@ -3,6 +3,7 @@ package com.example.paint;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,9 @@ import android.view.MenuItem;
 
 public class TelaActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 1;
+
+    int color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +24,8 @@ public class TelaActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        color = R.color.white;
+        this.findViewById(R.id.tela).setBackgroundColor(getResources().getColor(color));
     }
 
     @Override
@@ -35,7 +41,7 @@ public class TelaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.settings:
                 Intent intent1 = new Intent(this, Settings.class);
-                startActivity(intent1);
+                startActivityForResult(intent1,REQUEST_CODE);
                 return true;
             case R.id.about:
                 Intent intent2 = new Intent(this, About.class);
@@ -43,6 +49,17 @@ public class TelaActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            if (data.hasExtra("bgColor")) {
+                color = data.getExtras().getInt("bgColor");
+                this.findViewById(R.id.tela).setBackgroundColor(getResources().getColor(color));
+            }
         }
     }
 }
