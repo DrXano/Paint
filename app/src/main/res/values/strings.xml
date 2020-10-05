@@ -4,4 +4,9 @@
     <string name="button">Start</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+    <string name="group">Group 02</string>
+    <string name="alex">51023 - Alexandre Monteiro</string>
+    <string name="lac">55721 - Rodrigo Nogueira</string>
+    <string name="mileide">55839 - Mileide Gomes</string>
+    <string name="ghrimn">55909 - Pedro Sustelo</string>
 </resources>
