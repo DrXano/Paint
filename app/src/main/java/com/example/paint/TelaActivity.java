@@ -3,18 +3,20 @@ package com.example.paint;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class TelaActivity extends AppCompatActivity {
-
     private static final int REQUEST_CODE = 1;
+    public static final String PREFS = "Paintprefs";
 
-    int color;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences prefs;
+    private int color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +26,15 @@ public class TelaActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        color = R.color.white;
-        this.findViewById(R.id.tela).setBackgroundColor(getResources().getColor(color));
+
+        this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+        this.editor = this.prefs.edit();
+        if(prefs.contains("color")){
+            this.color = prefs.getInt("color",0);
+        }else {
+            this.color = R.color.white;
+        }
+        this.findViewById(R.id.tela).setBackgroundColor(getResources().getColor(this.color));
     }
 
     @Override
@@ -58,6 +67,8 @@ public class TelaActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             if (data.hasExtra("bgColor")) {
                 color = data.getExtras().getInt("bgColor");
+                editor.putInt("color",color);
+                editor.apply();
                 this.findViewById(R.id.tela).setBackgroundColor(getResources().getColor(color));
             }
         }

@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class Settings extends AppCompatActivity {
-
-    int color;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences prefs;
+    private int color;
+    private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +25,20 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.radioGroup = (RadioGroup)findViewById(R.id.colors);
+
+        this.prefs = getSharedPreferences(TelaActivity.PREFS, MODE_PRIVATE);
+        this.editor = this.prefs.edit();
+
+        if(prefs.contains("optId"))
+            this.radioGroup.check(prefs.getInt("optId",0));
     }
 
     public void save(View view){
         Intent i = new Intent(this,TelaActivity.class);
         i.putExtra("bgColor",color);
+        editor.putInt("optId",this.radioGroup.getCheckedRadioButtonId());
+        editor.apply();
         setResult(RESULT_OK,i);
         super.finish();
     }
