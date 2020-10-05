@@ -24,121 +24,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/background"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Settings_toolbar" />
-
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:checkedButton="@id/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/background_text"
-        app:layout_constraintTop_toBottomOf="@+id/Settings_toolbar">
-
-        <RadioButton
-            android:id="@+id/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/white"
-            android:textColor="@color/white" />
-
-        <RadioButton
-            android:id="@+id/brown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/brown"
-            android:textAllCaps="false"
-            android:textColor="@color/brown" />
-
-        <RadioButton
-            android:id="@+id/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/black"
-            android:textColor="@color/black" />
-
-        <RadioButton
-            android:id="@+id/pink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/pink"
-            android:textColor="@color/pink" />
-
-        <RadioButton
-            android:id="@+id/red"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/red"
-            android:textColor="@color/red" />
-
-        <RadioButton
-            android:id="@+id/orange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/orange"
-            android:textColor="@color/orange" />
-
-        <RadioButton
-            android:id="@+id/yellow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/yellow"
-            android:textColor="@color/yellow" />
-
-        <RadioButton
-            android:id="@+id/lightgreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/lightgreen"
-            android:textColor="@color/lightgreen" />
-
-        <RadioButton
-            android:id="@+id/darkgreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/darkgreen"
-            android:textColor="@color/darkgreen" />
-
-        <RadioButton
-            android:id="@+id/darkblue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/darkblue"
-            android:textColor="@color/darkblue" />
-
-        <RadioButton
-            android:id="@+id/lightblue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/lightblue"
-            android:textColor="@color/lightblue" />
-
-        <RadioButton
-            android:id="@+id/purple"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/purple"
-            android:textColor="@color/purple" />
-
-    </RadioGroup>
 
     <Button
         android:id="@+id/save"
@@ -152,5 +40,117 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/colors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:checkedButton="@id/white"
+        android:onClick="onRadioButtonClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background_text">
+
+        <RadioButton
+            android:id="@+id/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/white"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/brown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/brown"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/brown"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/black"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/pink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pink"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/pink" />
+
+        <RadioButton
+            android:id="@+id/red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/red" />
+
+        <RadioButton
+            android:id="@+id/orange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/orange" />
+
+        <RadioButton
+            android:id="@+id/yellow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/yellow" />
+
+        <RadioButton
+            android:id="@+id/lightgreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightgreen"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/lightgreen" />
+
+        <RadioButton
+            android:id="@+id/darkgreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkgreen"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/darkgreen" />
+
+        <RadioButton
+            android:id="@+id/darkblue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkblue"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/darkblue" />
+
+        <RadioButton
+            android:id="@+id/lightblue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightblue"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/lightblue" />
+
+        <RadioButton
+            android:id="@+id/purple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/purple" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

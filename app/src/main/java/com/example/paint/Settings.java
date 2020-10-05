@@ -30,6 +30,7 @@ public class Settings extends AppCompatActivity {
         super.finish();
     }
 
+
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
@@ -84,4 +85,5 @@ public class Settings extends AppCompatActivity {
                     break;
         }
     }
+
 }
