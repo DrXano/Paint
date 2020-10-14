@@ -1,4 +1,4 @@
- package com.example.paint;
+package com.example.paint;
 
 import android.os.Bundle;
 
@@ -53,6 +53,7 @@ public class canvas extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
