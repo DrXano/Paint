@@ -20,12 +20,12 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.Settings_toolbar);
+        Toolbar myToolbar = findViewById(R.id.Settings_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.radioGroup = (RadioGroup)findViewById(R.id.colors);
+        this.radioGroup = findViewById(R.id.colors);
 
         this.prefs = getSharedPreferences(TelaActivity.PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();

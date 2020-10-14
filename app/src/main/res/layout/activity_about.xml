@@ -30,157 +30,199 @@
         app:layout_constraintTop_toBottomOf="@+id/about_toolbar"
         tools:text="@string/group" />
 
-    <TextView
-        android:id="@+id/memb1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/alex"
-        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rl_mrxano"
-        app:layout_constraintTop_toBottomOf="@+id/groupnumber"
-        tools:text="@string/alex" />
-
-    <TextView
-        android:id="@+id/memb2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/lac"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rl_lac"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mrxano"
-        tools:text="@string/lac" />
-
-    <TextView
-        android:id="@+id/memb3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/mileide"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rl_mileide"
-        app:layout_constraintTop_toBottomOf="@+id/rl_lac"
-        tools:text="@string/mileide" />
-
-    <TextView
-        android:id="@+id/memb4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/ghrimn"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rl_ghrim"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mileide"
-        tools:text="@string/ghrimn" />
-
-    <RelativeLayout
-        android:id="@+id/rl_mrxano"
-        android:layout_width="106dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupnumber">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_mrxano"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            app:cardCornerRadius="50dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/img_mrxano"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/alex"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/mrxano" />
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/rl_lac"
-        android:layout_width="106dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mrxano">
+                <RelativeLayout
+                    android:id="@+id/rl_mrxano"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_lac"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            app:cardCornerRadius="50dp">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_mrxano"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cardCornerRadius="50dp">
 
-            <ImageView
-                android:id="@+id/img_lac"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/lac"
-                app:srcCompat="@drawable/lac" />
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/img_mrxano"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/alex"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/mrxano" />
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_mileide"
-        android:layout_width="106dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_lac">
+                <TextView
+                    android:id="@+id/memb1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/alex"
+                    android:textSize="18sp"
+                    tools:text="@string/alex" />
+            </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_mileide"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            app:cardCornerRadius="50dp" />
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/rl_ghrim"
-        android:layout_width="106dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rl_mileide">
+                <RelativeLayout
+                    android:id="@+id/rl_lac"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_ghrim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            app:cardCornerRadius="50dp"/>
-    </RelativeLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_lac"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cardCornerRadius="50dp">
+
+                        <ImageView
+                            android:id="@+id/img_lac"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/lac"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/lac" />
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/memb2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/lac"
+                    android:textSize="18sp"
+                    tools:text="@string/lac" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_mileide"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_mileide"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cardCornerRadius="50dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/memb3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/mileide"
+                    android:textSize="18sp"
+                    tools:text="@string/mileide" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_ghrim"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_ghrim"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        app:cardCornerRadius="50dp" >
+
+                        <ImageView
+                            android:id="@+id/img_ghrimn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/ghrimn"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/ghrimn" />
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/memb4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/ghrimn"
+                    android:textSize="18sp"
+                    tools:text="@string/ghrimn" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
