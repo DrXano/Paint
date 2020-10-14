@@ -1,4 +1,4 @@
-package com.example.paint;
+ package com.example.paint;
 
 import android.os.Bundle;
 

@@ -157,7 +157,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        app:cardCornerRadius="50dp" />
+                        app:cardCornerRadius="50dp" >
+
+                        <ImageView
+                            android:id="@+id/img_mileide"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/mileide"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/mileide" />
+                    </androidx.cardview.widget.CardView>
                 </RelativeLayout>
 
                 <TextView
