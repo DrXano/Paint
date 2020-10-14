@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link canvas#newInstance} factory method to
+ * Use the {@link Canvas#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class canvas extends Fragment {
+public class Canvas extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class canvas extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public canvas() {
+    public Canvas() {
         // Required empty public constructor
     }
 
@@ -34,11 +34,11 @@ public class canvas extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment canvas.
+     * @return A new instance of fragment Canvas.
      */
     // TODO: Rename and change types and number of parameters
-    public static canvas newInstance(String param1, String param2) {
-        canvas fragment = new canvas();
+    public static Canvas newInstance(String param1, String param2) {
+        Canvas fragment = new Canvas();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

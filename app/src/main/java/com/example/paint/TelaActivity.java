@@ -2,6 +2,9 @@ package com.example.paint;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +30,10 @@ public class TelaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //Canvas canva = new Canvas();
+
+        //getSupportFragmentManager().beginTransaction().add(R.id.mainfrag, canva).commit();
+
         this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
         if(prefs.contains("color")){
@@ -49,8 +56,18 @@ public class TelaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.settings:
+                /*
                 Intent intent1 = new Intent(this, Settings.class);
                 startActivityForResult(intent1,REQUEST_CODE);
+                */
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                Fragment nextfrag = new Palette();
+                fragmentTransaction.replace(R.id.mainfrag,nextfrag);
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
+
                 return true;
             case R.id.about:
                 Intent intent2 = new Intent(this, About.class);
