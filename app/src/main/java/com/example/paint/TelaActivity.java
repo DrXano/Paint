@@ -30,9 +30,13 @@ public class TelaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        //Canvas canva = new Canvas();
 
-        //getSupportFragmentManager().beginTransaction().add(R.id.mainfrag, canva).commit();
+        Fragment canvas = new Canvas();
+
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        trans.add(R.id.mainfrag,canvas);
+        //trans.addToBackStack(null);
+        trans.commit();
 
         this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
