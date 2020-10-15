@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/palette"
@@ -7,9 +7,100 @@
     android:layout_height="match_parent"
     tools:context=".Palette">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/colors"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Isto é a pallete" />
-</FrameLayout>
+        android:checkedButton="@id/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:text="@string/white"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/brown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/brown"
+            android:text="@string/brown"
+            android:textColor="@color/black" />
+
+        <RadioButton
+            android:id="@+id/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:text="@string/black"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/pink"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/pink"
+            android:text="@string/pink" />
+
+        <RadioButton
+            android:id="@+id/red"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:text="@string/red" />
+
+        <RadioButton
+            android:id="@+id/orange"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/orange"
+            android:text="@string/orange" />
+
+        <RadioButton
+            android:id="@+id/yellow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/yellow"
+            android:text="@string/yellow" />
+
+        <RadioButton
+            android:id="@+id/lightgreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightgreen"
+            android:text="@string/lightgreen" />
+
+        <RadioButton
+            android:id="@+id/darkgreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkgreen"
+            android:text="@string/darkgreen" />
+
+        <RadioButton
+            android:id="@+id/darkblue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkblue"
+            android:text="@string/darkblue" />
+
+        <RadioButton
+            android:id="@+id/lightblue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightblue"
+            android:text="@string/lightblue" />
+
+        <RadioButton
+            android:id="@+id/purple"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple"
+            android:text="@string/purple" />
+    </RadioGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

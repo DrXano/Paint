@@ -5,11 +5,4 @@
     android:id="@+id/canvas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Canvas" >
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Isto é um canvas" />
-</FrameLayout>
+    tools:context=".Canvas" />

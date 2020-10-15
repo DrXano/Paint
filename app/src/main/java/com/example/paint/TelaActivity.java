@@ -64,9 +64,17 @@ public class TelaActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(this, Settings.class);
                 startActivityForResult(intent1,REQUEST_CODE);
                 */
+
+                Fragment current = getSupportFragmentManager().findFragmentById(R.id.mainfrag);
+
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                Fragment nextfrag = new Palette();
+                Fragment nextfrag;
+                if(current instanceof Canvas){
+                    nextfrag = new Palette();
+                }else{
+                    nextfrag = new Canvas();
+                }
                 fragmentTransaction.replace(R.id.mainfrag,nextfrag);
                 fragmentTransaction.addToBackStack(null);
 
