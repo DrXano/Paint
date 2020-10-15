@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,13 +31,19 @@ public class TelaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        Fragment canvas = new Canvas();
-
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        trans.add(R.id.mainfrag,canvas);
-        //trans.addToBackStack(null);
-        trans.commit();
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            Fragment canvas = new Canvas();
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.add(R.id.mainfrag,canvas);
+            trans.commit();
+        }else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            Fragment canvas = new Canvas();
+            Fragment palette = new Palette();
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.add(R.id.canvas_cont,canvas);
+            trans.add(R.id.palette_cont,palette);
+            trans.commit();
+        }
 
         this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
@@ -65,21 +72,22 @@ public class TelaActivity extends AppCompatActivity {
                 startActivityForResult(intent1,REQUEST_CODE);
                 */
 
-                Fragment current = getSupportFragmentManager().findFragmentById(R.id.mainfrag);
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    Fragment current = getSupportFragmentManager().findFragmentById(R.id.mainfrag);
 
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                Fragment nextfrag;
-                if(current instanceof Canvas){
-                    nextfrag = new Palette();
-                }else{
-                    nextfrag = new Canvas();
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                    Fragment nextfrag;
+                    if (current instanceof Canvas) {
+                        nextfrag = new Palette();
+                    } else {
+                        nextfrag = new Canvas();
+                    }
+                    fragmentTransaction.replace(R.id.mainfrag, nextfrag);
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
                 }
-                fragmentTransaction.replace(R.id.mainfrag,nextfrag);
-                fragmentTransaction.addToBackStack(null);
-
-                fragmentTransaction.commit();
-
                 return true;
             case R.id.about:
                 Intent intent2 = new Intent(this, About.class);
