@@ -57,51 +57,51 @@ public class Settings extends AppCompatActivity {
 
         switch(view.getId()) {
             case R.id.white:
-                if (checked)
+                if (checked && color != R.color.white)
                     color = R.color.white;
                     break;
             case R.id.brown:
-                if (checked)
+                if (checked && color != R.color.brown)
                     color = R.color.brown;
                     break;
             case R.id.black:
-                if (checked)
+                if (checked && color != R.color.black)
                     color = R.color.black;
                     break;
             case R.id.pink:
-                if (checked)
+                if (checked && color != R.color.pink)
                     color = R.color.pink;
                     break;
             case R.id.red:
-                if (checked)
+                if (checked && color != R.color.red)
                     color = R.color.red;
                     break;
             case R.id.orange:
-                if (checked)
+                if (checked && color != R.color.orange)
                     color = R.color.orange;
                     break;
             case R.id.yellow:
-                if (checked)
+                if (checked && color != R.color.yellow)
                     color = R.color.yellow;
                     break;
             case R.id.lightgreen:
-                if (checked)
+                if (checked && color != R.color.lightgreen)
                     color = R.color.lightgreen;
                     break;
             case R.id.darkgreen:
-                if (checked)
+                if (checked && color != R.color.darkgreen)
                     color = R.color.darkgreen;
                     break;
             case R.id.darkblue:
-                if (checked)
+                if (checked && color != R.color.darkblue)
                     color = R.color.darkblue;
                     break;
             case R.id.lightblue:
-                if (checked)
+                if (checked && color != R.color.lightblue)
                     color = R.color.lightblue;
                     break;
             case R.id.purple:
-                if (checked)
+                if (checked && color != R.color.purple)
                     color = R.color.purple;
                     break;
         }
