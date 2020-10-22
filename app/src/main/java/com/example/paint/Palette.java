@@ -32,7 +32,6 @@ public class Palette extends Fragment {
     private String mParam2;
 
     int defaultColor = R.color.white;
-    int color;
 
     public Palette() {
         // Required empty public constructor
@@ -71,6 +70,9 @@ public class Palette extends Fragment {
                 new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
+                        Bundle result = new Bundle();
+                        result.putInt("bgcolor",color);
+                        getParentFragmentManager().setFragmentResult("color", result);
                     }
 
                     @Override
@@ -88,67 +90,123 @@ public class Palette extends Fragment {
        View v = inflater.inflate(R.layout.fragment_palette, container, false);
 
         final Button mButton = (Button) v.findViewById(R.id.buttoncolor);
+        final Button white = v.findViewById(R.id.white);
+        final Button brown = v.findViewById(R.id.brown);
+        final Button black = v.findViewById(R.id.black);
+        final Button pink = v.findViewById(R.id.pink);
+        final Button red = v.findViewById(R.id.red);
+        final Button orange = v.findViewById(R.id.orange);
+        final Button yellow = v.findViewById(R.id.yellow);
+        final Button lightgreen = v.findViewById(R.id.lightgreen);
+        final Button darkgreen = v.findViewById(R.id.darkgreen);
+        final Button darkblue = v.findViewById(R.id.darkblue);
+        final Button lightblue = v.findViewById(R.id.lightblue);
+        final Button purple = v.findViewById(R.id.purple);
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
             }
         });
+
+        white.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.white));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        brown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.brown));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        black.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.black));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        pink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.pink));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.red));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        orange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.orange));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.yellow));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        lightgreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.lightgreen));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        darkgreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.darkgreen));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        darkblue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.darkblue));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        lightblue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.lightblue));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+        purple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle result = new Bundle();
+                result.putInt("bgcolor",getResources().getColor(R.color.purple));
+                getParentFragmentManager().setFragmentResult("color", result);
+            }
+        });
+
        return v;
-    }
-
-    public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.white:
-                if (checked && color != R.color.white)
-                    color = R.color.white;
-                break;
-            case R.id.brown:
-                if (checked && color != R.color.brown)
-                    color = R.color.brown;
-                break;
-            case R.id.black:
-                if (checked && color != R.color.black)
-                    color = R.color.black;
-                break;
-            case R.id.pink:
-                if (checked && color != R.color.pink)
-                    color = R.color.pink;
-                break;
-            case R.id.red:
-                if (checked && color != R.color.red)
-                    color = R.color.red;
-                break;
-            case R.id.orange:
-                if (checked && color != R.color.orange)
-                    color = R.color.orange;
-                break;
-            case R.id.yellow:
-                if (checked && color != R.color.yellow)
-                    color = R.color.yellow;
-                break;
-            case R.id.lightgreen:
-                if (checked && color != R.color.lightgreen)
-                    color = R.color.lightgreen;
-                break;
-            case R.id.darkgreen:
-                if (checked && color != R.color.darkgreen)
-                    color = R.color.darkgreen;
-                break;
-            case R.id.darkblue:
-                if (checked && color != R.color.darkblue)
-                    color = R.color.darkblue;
-                break;
-            case R.id.lightblue:
-                if (checked && color != R.color.lightblue)
-                    color = R.color.lightblue;
-                break;
-            case R.id.purple:
-                if (checked && color != R.color.purple)
-                    color = R.color.purple;
-                break;
-        }
     }
 }
