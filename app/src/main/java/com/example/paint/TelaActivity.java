@@ -62,28 +62,6 @@ public class TelaActivity extends AppCompatActivity {
         }
     }
 
-    void openDialog() {
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(
-                TelaActivity.this, defaultColor,
-                new AmbilWarnaDialog.OnAmbilWarnaListener() {
-                    @Override
-                    public void onOk(AmbilWarnaDialog dialog, int color) {
-                        /*
-                        TelaActivity.this.defaultColor = color;
-                        TelaActivity.this.canvas.getView().setBackgroundColor(color);
-                        TelaActivity.this.color = defaultColor;
-                        TelaActivity.this.editor.putInt("color",color);
-                        TelaActivity.this.editor.apply();
-                        */
-                    }
-
-                    @Override
-                    public void onCancel(AmbilWarnaDialog dialog) {
-                    }
-                });
-        dialog.show();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

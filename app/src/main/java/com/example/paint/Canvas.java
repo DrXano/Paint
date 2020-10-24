@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,15 +62,26 @@ public class Canvas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.fragment_canvas, container, false);
+        //final View v = inflater.inflate(R.layout.fragment_canvas, container, false);
+
+        GestureListener mGestureListener = new GestureListener();
+        GestureDetector mGestureDetector = new GestureDetector(getContext(), mGestureListener);
+        mGestureDetector.setIsLongpressEnabled(true);
+        mGestureDetector.setOnDoubleTapListener(mGestureListener);
+
+        final PaintCanvas paintCanvas = new PaintCanvas(getContext(), null, mGestureDetector);
+        mGestureListener.setCanvas(paintCanvas);
+
+
         getParentFragmentManager().setFragmentResultListener("color", this, new FragmentResultListener(){
 
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle result) {
                 int color = result.getInt("bgcolor");
-                v.getRootView().setBackgroundColor(color);
+                paintCanvas.changeBackground(color);
             }
         });
-        return v;
+
+        return paintCanvas;
     }
 }
