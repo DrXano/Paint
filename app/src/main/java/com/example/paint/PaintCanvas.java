@@ -17,6 +17,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
 
     private Paint paint;
     private Path path;
+    private ArrayList<Draw> paths = new ArrayList<>();
     private int backGroundColor = getResources().getColor(R.color.white);
     private GestureDetector mGestureDetector;
 
@@ -26,6 +27,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(backGroundColor);
         paint = new Paint();
         path = new Path();
+        paths.add(new Draw(path,paint));
         initPaint();
     }
 
@@ -36,12 +38,15 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(backGroundColor);
         paint = new Paint();
         path = new Path();
+        paths.add(new Draw(path,paint));
         initPaint();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawPath(path, paint);// draws the path with the paint
+        //canvas.drawPath(path, paint);// draws the path with the paint
+        for(Draw d: paths)
+            canvas.drawPath(d.getPath(),d.getPaint());
     }
 
     @Override
@@ -90,19 +95,32 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     }
 
     public void setStyle(Paint.Style style){
+        paint = new Paint();
+        path = new Path();
+        paths.add(new Draw(path,paint));
         paint.setStyle(style);
     }
 
     public void setStrokeWidth (int width) {
+        paint = new Paint();
+        path = new Path();
+        initPaint();
+        paths.add(new Draw(path,paint));
         paint.setStrokeWidth(width);
     }
 
     public void changeLineColor(int color){
+        paint = new Paint();
+        path = new Path();
+        initPaint();
+        paths.add(new Draw(path,paint));
         paint.setColor(color);
     }
 
     public void erase(){
-        paint.setColor(backGroundColor);
+        for(Draw d: paths)
+            d.setColor(backGroundColor);
+        //paint.setColor(backGroundColor);
     }
 
     private void initPaint(){
