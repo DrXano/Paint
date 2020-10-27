@@ -27,9 +27,15 @@ public class Palette extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String bgKey = "bgcolor";
+    private static final String lnKey = "lncolor";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String requestKey = lnKey;
+    private String colorKey = "color";
 
     int defaultColor = R.color.white;
 
@@ -71,8 +77,8 @@ public class Palette extends Fragment {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         Bundle result = new Bundle();
-                        result.putInt("bgcolor",color);
-                        getParentFragmentManager().setFragmentResult("color", result);
+                        result.putInt(colorKey,color);
+                        getParentFragmentManager().setFragmentResult(requestKey, result);
                     }
 
                     @Override
@@ -114,96 +120,96 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.white));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.white));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         brown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.brown));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.brown));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         black.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.black));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.black));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         pink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.pink));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.pink));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.red));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.red));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.orange));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.orange));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.yellow));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.yellow));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         lightgreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.lightgreen));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.lightgreen));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         darkgreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.darkgreen));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.darkgreen));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         darkblue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.darkblue));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.darkblue));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         lightblue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.lightblue));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.lightblue));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
         purple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt("bgcolor",getResources().getColor(R.color.purple));
-                getParentFragmentManager().setFragmentResult("color", result);
+                result.putInt(colorKey,getResources().getColor(R.color.purple));
+                getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
 

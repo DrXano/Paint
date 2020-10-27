@@ -73,12 +73,20 @@ public class Canvas extends Fragment {
         mGestureListener.setCanvas(paintCanvas);
 
 
-        getParentFragmentManager().setFragmentResultListener("color", this, new FragmentResultListener(){
+        getParentFragmentManager().setFragmentResultListener("bgcolor", this, new FragmentResultListener(){
 
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle result) {
-                int color = result.getInt("bgcolor");
+                int color = result.getInt("color");
                 paintCanvas.changeBackground(color);
+            }
+        });
+        getParentFragmentManager().setFragmentResultListener("lncolor", this, new FragmentResultListener(){
+
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle result) {
+                int color = result.getInt("color");
+                paintCanvas.changeLineColor(color);
             }
         });
 
