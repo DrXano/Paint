@@ -8,11 +8,13 @@
     tools:context=".Palette">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toggle_pallette">
 
         <RadioGroup
             android:id="@+id/colors"
@@ -112,9 +114,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/darker_gray"
-                android:text="@string/colorPickerText"></RadioButton>
+                android:text="@string/colorPickerText" />
         </RadioGroup>
 
     </ScrollView>
+
+    <ToggleButton
+        android:id="@+id/toggle_pallette"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

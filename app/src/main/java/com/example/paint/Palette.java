@@ -1,17 +1,14 @@
 package com.example.paint;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
+
+import androidx.fragment.app.Fragment;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -108,6 +105,22 @@ public class Palette extends Fragment {
         final Button darkblue = v.findViewById(R.id.darkblue);
         final Button lightblue = v.findViewById(R.id.lightblue);
         final Button purple = v.findViewById(R.id.purple);
+        final ToggleButton toggle = v.findViewById(R.id.toggle_pallette);
+        toggle.setChecked(true);
+        toggle.setText(getResources().getString(R.string.line));
+        toggle.setTextOn(getResources().getString(R.string.line));
+        toggle.setTextOff(getResources().getString(R.string.background));
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //line
+                    requestKey = lnKey;
+                } else {
+                    //background
+                    requestKey = bgKey;
+                }
+            }
+        });
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
