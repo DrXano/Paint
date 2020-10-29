@@ -104,6 +104,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
 
     public void swapStrokeWidth () {
         float width;
+        int color = this.paint.getColor();
         if(this.paint.getStrokeWidth() == 20f){
             width = 90f;
             CharSequence text = "thick line";
@@ -120,6 +121,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         initPaint();
         paths.add(new Draw(path,paint));
         paint.setStrokeWidth(width);
+        paint.setColor(color);
     }
 
     public void changeLineColor(int color){
