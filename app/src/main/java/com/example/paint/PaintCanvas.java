@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -101,7 +102,19 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         paint.setStyle(style);
     }
 
-    public void setStrokeWidth (int width) {
+    public void swapStrokeWidth () {
+        float width;
+        if(this.paint.getStrokeWidth() == 20f){
+            width = 90f;
+            CharSequence text = "thick line";
+            Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
+            width = 20f;
+            CharSequence text = "small line";
+            Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+        }
         paint = new Paint();
         path = new Path();
         initPaint();
@@ -120,7 +133,6 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     public void erase(){
         for(Draw d: paths)
             d.setColor(backGroundColor);
-        //paint.setColor(backGroundColor);
     }
 
     private void initPaint(){

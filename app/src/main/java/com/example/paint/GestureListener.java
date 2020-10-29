@@ -14,13 +14,13 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener imp
     ////////SimpleOnGestureListener
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-        canvas.changeBackground();
-    }
+        canvas.erase();
+}
 
     /////////OnDoubleTapListener
     @Override
     public boolean onDoubleTap(MotionEvent motionEvent) {
-        canvas.erase();
+        canvas.swapStrokeWidth();
         return false;
     }
 
