@@ -14,8 +14,8 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener imp
     ////////SimpleOnGestureListener
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-        canvas.erase();
-}
+
+    }
 
     /////////OnDoubleTapListener
     @Override

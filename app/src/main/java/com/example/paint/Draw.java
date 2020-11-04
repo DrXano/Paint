@@ -24,4 +24,6 @@ public class Draw {
     public void setColor(int color){
         this.paint.setColor(color);
     }
+
+    public void setContrast(double value){}
 }

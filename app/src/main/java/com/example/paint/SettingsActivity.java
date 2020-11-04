@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences prefs;
     private int color;
@@ -23,7 +23,7 @@ public class Settings extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.Settings_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setTitle("SettingsActivity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         this.radioGroup = findViewById(R.id.colors);

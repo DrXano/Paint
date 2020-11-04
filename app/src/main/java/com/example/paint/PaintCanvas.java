@@ -2,9 +2,9 @@ package com.example.paint;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class PaintCanvas extends View implements View.OnTouchListener{
 
@@ -21,6 +20,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     private ArrayList<Draw> paths = new ArrayList<>();
     private int backGroundColor = getResources().getColor(R.color.white);
     private GestureDetector mGestureDetector;
+    private int brightness;
 
     public PaintCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,6 +30,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         path = new Path();
         paths.add(new Draw(path,paint));
         initPaint();
+        this.brightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 0);
     }
 
     public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector) {
@@ -45,7 +46,6 @@ public class PaintCanvas extends View implements View.OnTouchListener{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //canvas.drawPath(path, paint);// draws the path with the paint
         for(Draw d: paths)
             canvas.drawPath(d.getPath(),d.getPaint());
     }
@@ -87,12 +87,6 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     public void changeBackground(int color){
         backGroundColor = color;
         setBackgroundColor(color);
-    }
-
-    public void changeBackground(){
-        Random r = new Random();
-        backGroundColor = Color.rgb(r.nextInt(256), r.nextInt(256), r.nextInt(256));
-        setBackgroundColor(backGroundColor);
     }
 
     public void setStyle(Paint.Style style){
@@ -145,4 +139,8 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
 
+    public void workBrightness(float v) {
+        this.brightness = (int) v;
+        //Settings.System.putInt(this.getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, this.brightness);
+    }
 }

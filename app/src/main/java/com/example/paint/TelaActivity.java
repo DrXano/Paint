@@ -70,7 +70,7 @@ public class TelaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.settings:
                 /*
-                Intent intent1 = new Intent(this, Settings.class);
+                Intent intent1 = new Intent(this, SettingsActivity.class);
                 startActivityForResult(intent1,REQUEST_CODE);
                 */
 

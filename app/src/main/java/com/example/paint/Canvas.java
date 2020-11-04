@@ -1,5 +1,8 @@
 package com.example.paint;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -71,6 +74,9 @@ public class Canvas extends Fragment {
         final PaintCanvas paintCanvas = new PaintCanvas(getContext(), null, mGestureDetector);
         mGestureListener.setCanvas(paintCanvas);
 
+        SensorManager mSensorManager = (SensorManager) this.getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager.registerListener(new Accelerometer(this.getContext(),paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(new Lights(this.getContext(),paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
 
         getParentFragmentManager().setFragmentResultListener("bgcolor", this, new FragmentResultListener(){
 
