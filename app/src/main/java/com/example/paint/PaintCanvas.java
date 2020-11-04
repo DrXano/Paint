@@ -97,16 +97,37 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(color);
     }
 
-    public void setStyle(Paint.Style style){
-        paint = new Paint();
-        path = new Path();
-        paths.add(new Draw(path,paint));
-        paint.setStyle(style);
+    public void swapStyle(){
+
+        Paint.Style style;
+        if(this.paint.getStyle() == Paint.Style.STROKE){
+            style = Paint.Style.FILL;
+            CharSequence text = "Fill Mode";
+            Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
+            style = Paint.Style.STROKE;
+            CharSequence text = "Stroke Mode";
+            Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        Paint newPaint = new Paint();
+        Path newPath = new Path();
+
+        newPaint.setAntiAlias(true);
+        newPaint.setStrokeWidth(this.paint.getStrokeWidth());
+        newPaint.setColor(this.paint.getColor());
+        newPaint.setStyle(style);
+        newPaint.setStrokeJoin(this.paint.getStrokeJoin());
+
+        paths.add(new Draw(newPath,newPaint));
+        this.paint = newPaint;
+        this.path = newPath;
     }
 
     public void swapStrokeWidth () {
         float width;
-        int color = this.paint.getColor();
         if(this.paint.getStrokeWidth() == 20f){
             width = 90f;
             CharSequence text = "thick line";
@@ -118,25 +139,55 @@ public class PaintCanvas extends View implements View.OnTouchListener{
             Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
             toast.show();
         }
-        paint = new Paint();
-        path = new Path();
-        initPaint();
-        paths.add(new Draw(path,paint));
-        paint.setStrokeWidth(width);
-        paint.setColor(color);
+        Paint newPaint = new Paint();
+        Path newPath = new Path();
+
+        newPaint.setAntiAlias(true);
+        newPaint.setStrokeWidth(width);
+        newPaint.setColor(this.paint.getColor());
+        newPaint.setStyle(this.paint.getStyle());
+        newPaint.setStrokeJoin(this.paint.getStrokeJoin());
+
+        paths.add(new Draw(newPath,newPaint));
+        this.paint = newPaint;
+        this.path = newPath;
     }
 
     public void changeLineColor(int color){
-        paint = new Paint();
-        path = new Path();
-        initPaint();
-        paths.add(new Draw(path,paint));
-        paint.setColor(color);
+        Paint newPaint = new Paint();
+        Path newPath = new Path();
+
+        newPaint.setAntiAlias(true);
+        newPaint.setStrokeWidth(this.paint.getStrokeWidth());
+        newPaint.setColor(color);
+        newPaint.setStyle(this.paint.getStyle());
+        newPaint.setStrokeJoin(this.paint.getStrokeJoin());
+
+        paths.add(new Draw(newPath,newPaint));
+        this.paint = newPaint;
+        this.path = newPath;
     }
 
     public void erase(){
+        /*
         for(Draw d: paths)
             d.setColor(backGroundColor);
+
+         */
+        Paint newPaint = new Paint();
+        Path newPath = new Path();
+
+        newPaint.setAntiAlias(true);
+        newPaint.setStrokeWidth(this.paint.getStrokeWidth());
+        newPaint.setColor(this.paint.getColor());
+        newPaint.setStyle(this.paint.getStyle());
+        newPaint.setStrokeJoin(this.paint.getStrokeJoin());
+
+        paths.clear();
+
+        paths.add(new Draw(newPath,newPaint));
+        this.paint = newPaint;
+        this.path = newPath;
         invalidate();
     }
 
