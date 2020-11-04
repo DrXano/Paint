@@ -137,6 +137,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     public void erase(){
         for(Draw d: paths)
             d.setColor(backGroundColor);
+        invalidate();
     }
 
     private void initPaint(){
@@ -157,5 +158,6 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     public void setContrast(double contrast){
         for(Draw d: paths)
             d.setContrast(contrast);
+        invalidate();
     }
 }
