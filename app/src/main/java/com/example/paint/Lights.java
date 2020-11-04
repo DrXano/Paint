@@ -24,7 +24,8 @@ public class Lights implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         if(this.lights != null) {
             float value = event.values[0];
-            canvas.workBrightness(1-(value/max));
+            canvas.workBrightness(value,this.max);
+            canvas.setContrast(Math.pow((100 + (1 - value/this.max)) / 100, 2));
         }
     }
 

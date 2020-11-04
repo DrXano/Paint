@@ -71,7 +71,7 @@ public class Canvas extends Fragment {
         mGestureDetector.setIsLongpressEnabled(true);
         mGestureDetector.setOnDoubleTapListener(mGestureListener);
 
-        final PaintCanvas paintCanvas = new PaintCanvas(getContext(), null, mGestureDetector);
+        final PaintCanvas paintCanvas = new PaintCanvas(getContext(), null, mGestureDetector, getActivity().getWindow());
         mGestureListener.setCanvas(paintCanvas);
 
         SensorManager mSensorManager = (SensorManager) this.getActivity().getSystemService(Context.SENSOR_SERVICE);

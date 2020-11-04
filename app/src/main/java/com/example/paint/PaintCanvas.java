@@ -1,14 +1,19 @@
 package com.example.paint;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,9 +25,10 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     private ArrayList<Draw> paths = new ArrayList<>();
     private int backGroundColor = getResources().getColor(R.color.white);
     private GestureDetector mGestureDetector;
-    private int brightness;
+    private ContentResolver resolver;
+    private Window window;
 
-    public PaintCanvas(Context context, AttributeSet attrs) {
+    public PaintCanvas(Context context, AttributeSet attrs, Window window) {
         super(context, attrs);
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
@@ -30,10 +36,11 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         path = new Path();
         paths.add(new Draw(path,paint));
         initPaint();
-        this.brightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 0);
+        this.window = window;
+        this.resolver = context.getContentResolver();
     }
 
-    public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector) {
+    public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector, Window window) {
         super(context, attrs);
         this.mGestureDetector = mGestureDetector;
         setOnTouchListener(this);
@@ -42,6 +49,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         path = new Path();
         paths.add(new Draw(path,paint));
         initPaint();
+        this.window = window;
     }
 
     @Override
@@ -139,8 +147,15 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
 
-    public void workBrightness(float v) {
-        this.brightness = (int) v;
-        //Settings.System.putInt(this.getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, this.brightness);
+    public void workBrightness(float v, float max) {
+        Settings.System.putInt(this.resolver, Settings.System.SCREEN_BRIGHTNESS, (int) (1 - v / max));
+        ViewGroup.LayoutParams layoutpars = this.window.getAttributes();
+        ((WindowManager.LayoutParams) layoutpars).screenBrightness = 1 - v / max;
+        this.window.setAttributes((WindowManager.LayoutParams) layoutpars);
+    }
+
+    public void setContrast(double contrast){
+        for(Draw d: paths)
+            d.setContrast(contrast);
     }
 }
