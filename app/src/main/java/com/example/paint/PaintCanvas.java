@@ -200,7 +200,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
     }
 
     public void workBrightness(float v, float max) {
-        Settings.System.putInt(this.resolver, Settings.System.SCREEN_BRIGHTNESS, (int) (1 - v / max));
+        //Settings.System.putInt(this.resolver, Settings.System.SCREEN_BRIGHTNESS, (int) (1 - v / max));
         ViewGroup.LayoutParams layoutpars = this.window.getAttributes();
         ((WindowManager.LayoutParams) layoutpars).screenBrightness = 1 - v / max;
         this.window.setAttributes((WindowManager.LayoutParams) layoutpars);
