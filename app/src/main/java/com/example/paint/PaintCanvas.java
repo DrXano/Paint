@@ -5,8 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Build;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
