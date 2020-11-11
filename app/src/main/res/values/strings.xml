@@ -28,4 +28,6 @@
     <string name="colorPickerText">Custom Color</string>
     <string name="line">Line</string>
     <string name="map">Map</string>
+    <string name="startdraw">Start Drawing</string>
+    <string name="stopdraw">Stop Drawing</string>
 </resources>

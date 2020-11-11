@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,11 +17,12 @@ import androidx.fragment.app.FragmentTransaction;
 public class TelaActivity extends AppCompatActivity {
     public static final String PREFS = "Paintprefs";
     private static final int REQUEST_CODE = 1;
-    int defaultColor = R.color.white;//0xffffff00;
-    //ConstraintLayout mLayout;
+
     int color;
     Fragment canvas = new Canvas();
     Fragment palette = new Palette();
+    Fragment map = new MapsFragment();
+    Fragment currenttt;
     private SharedPreferences.Editor editor;
     private SharedPreferences prefs;
 
@@ -43,6 +43,8 @@ public class TelaActivity extends AppCompatActivity {
         } else {
             this.color = R.color.white;
         }
+
+        this.currenttt = canvas;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
@@ -80,10 +82,10 @@ public class TelaActivity extends AppCompatActivity {
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
                     Fragment nextfrag;
-                    if (current instanceof Canvas) {
+                    if (current instanceof Canvas || current instanceof MapsFragment) {
                         nextfrag = this.palette;
                     } else {
-                        nextfrag = this.canvas;
+                        nextfrag = this.currenttt;
                     }
                     fragmentTransaction.replace(R.id.mainfrag, nextfrag);
                     fragmentTransaction.addToBackStack(null);
@@ -96,9 +98,37 @@ public class TelaActivity extends AppCompatActivity {
                 startActivity(intent2);
                 return true;
             case R.id.map:
-                CharSequence text = "Map button";
-                Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-                toast.show();
+
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    Fragment current = getSupportFragmentManager().findFragmentById(R.id.mainfrag);
+
+                    if (this.currenttt instanceof Canvas) {
+                        this.currenttt = this.map;
+                    } else {
+                        this.currenttt = this.canvas;
+                    }
+
+                    if (!(current instanceof Palette)) {
+                        fragmentTransaction.replace(R.id.mainfrag, this.currenttt);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                } else {
+                    Fragment current = getSupportFragmentManager().findFragmentById(R.id.canvas_cont);
+
+                    if (current instanceof Canvas) {
+                        this.currenttt = this.map;
+                    } else {
+                        this.currenttt = this.canvas;
+                    }
+
+                    fragmentTransaction.replace(R.id.canvas_cont, this.currenttt);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
