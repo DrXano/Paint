@@ -14,7 +14,7 @@ public class Accelerometer implements SensorEventListener {
     private float mAccelCurrent;
     private float mAccelLast;
 
-    public  Accelerometer(Context context, PaintCanvas canvas){
+    public Accelerometer(Context context, PaintCanvas canvas) {
         this.canvas = canvas;
         this.mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         this.accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -22,7 +22,7 @@ public class Accelerometer implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(this.accelerometer != null) {
+        if (this.accelerometer != null) {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];

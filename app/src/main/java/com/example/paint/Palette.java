@@ -26,15 +26,12 @@ public class Palette extends Fragment {
 
     private static final String bgKey = "bgcolor";
     private static final String lnKey = "lncolor";
-
+    int defaultColor = R.color.white;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private String requestKey = lnKey;
     private String colorKey = "color";
-
-    int defaultColor = R.color.white;
 
     public Palette() {
         // Required empty public constructor
@@ -74,7 +71,7 @@ public class Palette extends Fragment {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
                         Bundle result = new Bundle();
-                        result.putInt(colorKey,color);
+                        result.putInt(colorKey, color);
                         getParentFragmentManager().setFragmentResult(requestKey, result);
                     }
 
@@ -90,7 +87,7 @@ public class Palette extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v = inflater.inflate(R.layout.fragment_palette, container, false);
+        View v = inflater.inflate(R.layout.fragment_palette, container, false);
 
         final Button mButton = (Button) v.findViewById(R.id.buttoncolor);
         final Button white = v.findViewById(R.id.white);
@@ -133,7 +130,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.white));
+                result.putInt(colorKey, getResources().getColor(R.color.white));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -141,7 +138,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.brown));
+                result.putInt(colorKey, getResources().getColor(R.color.brown));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -149,7 +146,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.black));
+                result.putInt(colorKey, getResources().getColor(R.color.black));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -157,7 +154,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.pink));
+                result.putInt(colorKey, getResources().getColor(R.color.pink));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -165,7 +162,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.red));
+                result.putInt(colorKey, getResources().getColor(R.color.red));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -173,7 +170,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.orange));
+                result.putInt(colorKey, getResources().getColor(R.color.orange));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -181,7 +178,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.yellow));
+                result.putInt(colorKey, getResources().getColor(R.color.yellow));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -189,7 +186,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.lightgreen));
+                result.putInt(colorKey, getResources().getColor(R.color.lightgreen));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -197,7 +194,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.darkgreen));
+                result.putInt(colorKey, getResources().getColor(R.color.darkgreen));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -205,7 +202,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.darkblue));
+                result.putInt(colorKey, getResources().getColor(R.color.darkblue));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -213,7 +210,7 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.lightblue));
+                result.putInt(colorKey, getResources().getColor(R.color.lightblue));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
@@ -221,11 +218,11 @@ public class Palette extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle result = new Bundle();
-                result.putInt(colorKey,getResources().getColor(R.color.purple));
+                result.putInt(colorKey, getResources().getColor(R.color.purple));
                 getParentFragmentManager().setFragmentResult(requestKey, result);
             }
         });
 
-       return v;
+        return v;
     }
 }

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PaintCanvas extends View implements View.OnTouchListener{
+public class PaintCanvas extends View implements View.OnTouchListener {
 
     private Paint paint;
     private Path path;
@@ -32,7 +32,7 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(backGroundColor);
         paint = new Paint();
         path = new Path();
-        paths.add(new Draw(path,paint));
+        paths.add(new Draw(path, paint));
         initPaint();
         this.window = window;
         this.resolver = context.getContentResolver();
@@ -45,19 +45,19 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         setBackgroundColor(backGroundColor);
         paint = new Paint();
         path = new Path();
-        paths.add(new Draw(path,paint));
+        paths.add(new Draw(path, paint));
         initPaint();
         this.window = window;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        for(Draw d: paths)
-            canvas.drawPath(d.getPath(),d.getPaint());
+        for (Draw d : paths)
+            canvas.drawPath(d.getPath(), d.getPaint());
     }
 
     @Override
-    public boolean performClick(){
+    public boolean performClick() {
         return super.performClick();
     }
 
@@ -90,20 +90,20 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         return true;
     }
 
-    public void changeBackground(int color){
+    public void changeBackground(int color) {
         backGroundColor = color;
         setBackgroundColor(color);
     }
 
-    public void swapStyle(){
+    public void swapStyle() {
 
         Paint.Style style;
-        if(this.paint.getStyle() == Paint.Style.STROKE){
+        if (this.paint.getStyle() == Paint.Style.STROKE) {
             style = Paint.Style.FILL;
             CharSequence text = "Fill Mode";
             Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
             toast.show();
-        }else{
+        } else {
             style = Paint.Style.STROKE;
             CharSequence text = "Stroke Mode";
             Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
@@ -119,19 +119,19 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         newPaint.setStyle(style);
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath,newPaint));
+        paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
     }
 
-    public void swapStrokeWidth () {
+    public void swapStrokeWidth() {
         float width;
-        if(this.paint.getStrokeWidth() == 20f){
+        if (this.paint.getStrokeWidth() == 20f) {
             width = 90f;
             CharSequence text = "thick line";
             Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
             toast.show();
-        }else{
+        } else {
             width = 20f;
             CharSequence text = "small line";
             Toast toast = Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT);
@@ -146,12 +146,12 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         newPaint.setStyle(this.paint.getStyle());
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath,newPaint));
+        paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
     }
 
-    public void changeLineColor(int color){
+    public void changeLineColor(int color) {
         Paint newPaint = new Paint();
         Path newPath = new Path();
 
@@ -161,12 +161,12 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         newPaint.setStyle(this.paint.getStyle());
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath,newPaint));
+        paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
     }
 
-    public void erase(){
+    public void erase() {
         /*
         for(Draw d: paths)
             d.setColor(backGroundColor);
@@ -183,13 +183,13 @@ public class PaintCanvas extends View implements View.OnTouchListener{
 
         paths.clear();
 
-        paths.add(new Draw(newPath,newPaint));
+        paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
         invalidate();
     }
 
-    private void initPaint(){
+    private void initPaint() {
         paint.setAntiAlias(true);
         paint.setStrokeWidth(20f);
         paint.setColor(getResources().getColor(R.color.black));
@@ -204,8 +204,8 @@ public class PaintCanvas extends View implements View.OnTouchListener{
         this.window.setAttributes((WindowManager.LayoutParams) layoutpars);
     }
 
-    public void setContrast(double contrast){
-        for(Draw d: paths)
+    public void setContrast(double contrast) {
+        for (Draw d : paths)
             d.setContrast(contrast);
         invalidate();
     }

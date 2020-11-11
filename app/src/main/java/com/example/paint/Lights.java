@@ -13,7 +13,7 @@ public class Lights implements SensorEventListener {
     private PaintCanvas canvas;
     private float max;
 
-    public Lights(Context context, PaintCanvas canvas){
+    public Lights(Context context, PaintCanvas canvas) {
         this.canvas = canvas;
         this.mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         this.lights = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -22,10 +22,10 @@ public class Lights implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if(this.lights != null) {
+        if (this.lights != null) {
             float value = event.values[0];
-            canvas.workBrightness(value,this.max);
-            canvas.setContrast(Math.pow((100 + (1 - value/this.max)) / 100, 2));
+            canvas.workBrightness(value, this.max);
+            canvas.setContrast(Math.pow((100 + (1 - value / this.max)) / 100, 2));
         }
     }
 

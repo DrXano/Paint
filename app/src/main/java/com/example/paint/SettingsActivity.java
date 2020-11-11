@@ -31,18 +31,17 @@ public class SettingsActivity extends AppCompatActivity {
         this.prefs = getSharedPreferences(TelaActivity.PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
 
-        if(prefs.contains("optId"))
-            this.radioGroup.check(prefs.getInt("optId",0));
+        if (prefs.contains("optId"))
+            this.radioGroup.check(prefs.getInt("optId", 0));
     }
 
 
-
-    public void save(View view){
-        Intent i = new Intent(this,TelaActivity.class);
-        i.putExtra("bgColor",color);
-        editor.putInt("optId",this.radioGroup.getCheckedRadioButtonId());
+    public void save(View view) {
+        Intent i = new Intent(this, TelaActivity.class);
+        i.putExtra("bgColor", color);
+        editor.putInt("optId", this.radioGroup.getCheckedRadioButtonId());
         editor.apply();
-        setResult(RESULT_OK,i);
+        setResult(RESULT_OK, i);
         super.finish();
     }
 
@@ -50,55 +49,55 @@ public class SettingsActivity extends AppCompatActivity {
     public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.white:
                 if (checked && color != R.color.white)
                     color = R.color.white;
-                    break;
+                break;
             case R.id.brown:
                 if (checked && color != R.color.brown)
                     color = R.color.brown;
-                    break;
+                break;
             case R.id.black:
                 if (checked && color != R.color.black)
                     color = R.color.black;
-                    break;
+                break;
             case R.id.pink:
                 if (checked && color != R.color.pink)
                     color = R.color.pink;
-                    break;
+                break;
             case R.id.red:
                 if (checked && color != R.color.red)
                     color = R.color.red;
-                    break;
+                break;
             case R.id.orange:
                 if (checked && color != R.color.orange)
                     color = R.color.orange;
-                    break;
+                break;
             case R.id.yellow:
                 if (checked && color != R.color.yellow)
                     color = R.color.yellow;
-                    break;
+                break;
             case R.id.lightgreen:
                 if (checked && color != R.color.lightgreen)
                     color = R.color.lightgreen;
-                    break;
+                break;
             case R.id.darkgreen:
                 if (checked && color != R.color.darkgreen)
                     color = R.color.darkgreen;
-                    break;
+                break;
             case R.id.darkblue:
                 if (checked && color != R.color.darkblue)
                     color = R.color.darkblue;
-                    break;
+                break;
             case R.id.lightblue:
                 if (checked && color != R.color.lightblue)
                     color = R.color.lightblue;
-                    break;
+                break;
             case R.id.purple:
                 if (checked && color != R.color.purple)
                     color = R.color.purple;
-                    break;
+                break;
         }
     }
 

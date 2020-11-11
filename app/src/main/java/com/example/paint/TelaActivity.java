@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,17 +16,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class TelaActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE = 1;
     public static final String PREFS = "Paintprefs";
-
+    private static final int REQUEST_CODE = 1;
     int defaultColor = R.color.white;//0xffffff00;
     //ConstraintLayout mLayout;
-
-    private SharedPreferences.Editor editor;
-    private SharedPreferences prefs;
     int color;
     Fragment canvas = new Canvas();
     Fragment palette = new Palette();
+    private SharedPreferences.Editor editor;
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +38,21 @@ public class TelaActivity extends AppCompatActivity {
 
         this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
-        if(prefs.contains("color")){
-            this.color = prefs.getInt("color",0);
-        }else {
+        if (prefs.contains("color")) {
+            this.color = prefs.getInt("color", 0);
+        } else {
             this.color = R.color.white;
         }
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            trans.add(R.id.mainfrag,this.canvas);
+            trans.add(R.id.mainfrag, this.canvas);
             trans.commit();
 
-        }else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-            trans.add(R.id.canvas_cont,this.canvas);
-            trans.add(R.id.palette_cont,this.palette);
+            trans.add(R.id.canvas_cont, this.canvas);
+            trans.add(R.id.palette_cont, this.palette);
             trans.commit();
         }
     }
@@ -74,7 +74,7 @@ public class TelaActivity extends AppCompatActivity {
                 startActivityForResult(intent1,REQUEST_CODE);
                 */
 
-                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     Fragment current = getSupportFragmentManager().findFragmentById(R.id.mainfrag);
 
                     FragmentManager fm = getSupportFragmentManager();
@@ -95,6 +95,11 @@ public class TelaActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, About.class);
                 startActivity(intent2);
                 return true;
+            case R.id.map:
+                CharSequence text = "Map button";
+                Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+                toast.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -106,7 +111,7 @@ public class TelaActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             if (data.hasExtra("bgColor")) {
                 color = data.getExtras().getInt("bgColor");
-                editor.putInt("color",color);
+                editor.putInt("color", color);
                 editor.apply();
                 this.canvas.getView().setBackgroundColor(getResources().getColor(color));
             }

@@ -75,10 +75,10 @@ public class Canvas extends Fragment {
         mGestureListener.setCanvas(paintCanvas);
 
         SensorManager mSensorManager = (SensorManager) this.getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mSensorManager.registerListener(new Accelerometer(this.getContext(),paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(new Lights(this.getContext(),paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(new Accelerometer(this.getContext(), paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(new Lights(this.getContext(), paintCanvas), mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
 
-        getParentFragmentManager().setFragmentResultListener("bgcolor", this, new FragmentResultListener(){
+        getParentFragmentManager().setFragmentResultListener("bgcolor", this, new FragmentResultListener() {
 
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle result) {
@@ -86,7 +86,7 @@ public class Canvas extends Fragment {
                 paintCanvas.changeBackground(color);
             }
         });
-        getParentFragmentManager().setFragmentResultListener("lncolor", this, new FragmentResultListener(){
+        getParentFragmentManager().setFragmentResultListener("lncolor", this, new FragmentResultListener() {
 
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle result) {
