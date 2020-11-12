@@ -7,7 +7,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,7 +25,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -38,6 +35,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationClient;
     private LocationManager locMan;
     private LocationListener locLis;
+    private PolyCanvas canvas;
 
     @Nullable
     @Override
@@ -58,9 +56,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 drawmode = drawmode ? false : true;
+                if(!drawmode){
+                    canvas.startNewPolyline();
+                }
                 b.setText(getResources().getString(drawmode ? R.string.stopdraw : R.string.startdraw));
             }
         });
+
         return v;
     }
 
@@ -78,10 +80,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(final GoogleMap googleMap) {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getActivity().requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET},10);
+                getActivity().requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}, 10);
             }
             return;
         }
+        this.canvas = new PolyCanvas(googleMap);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                     @Override
@@ -89,6 +92,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         if (location != null) {
                             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+
                         }
                     }
                 });
@@ -99,6 +103,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                canvas.drawPolyline(loc);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
             }
         };
