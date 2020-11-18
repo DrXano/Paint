@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "449010619767",
+    "firebase_url": "https://paint-295312.firebaseio.com",
+    "project_id": "paint-295312",
+    "storage_bucket": "paint-295312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449010619767:android:88745be40990a55b5afd72",
+        "android_client_info": {
+          "package_name": "com.example.paint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449010619767-tffs9f3jp3fr8tbn8q738mrmgpsd45ti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GHb7o5vCKnCK4iZKx-p2MLtJgAV7tbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449010619767-tffs9f3jp3fr8tbn8q738mrmgpsd45ti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
