@@ -30,4 +30,6 @@
     <string name="map">Map</string>
     <string name="startdraw">Start Drawing</string>
     <string name="stopdraw">Stop Drawing</string>
+    <string name="load">Load</string>
+    <string name="DrawName">Draw Name</string>
 </resources>

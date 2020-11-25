@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import interfaces.PathInterface;
+
 public class PaintCanvas extends View implements View.OnTouchListener {
 
     private Paint paint;
@@ -25,6 +27,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     private GestureDetector mGestureDetector;
     private ContentResolver resolver;
     private Window window;
+    PathInterface pathinterface;
 
     public PaintCanvas(Context context, AttributeSet attrs, Window window) {
         super(context, attrs);
@@ -36,6 +39,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         initPaint();
         this.window = window;
         this.resolver = context.getContentResolver();
+        pathinterface = (PathInterface) context;
     }
 
     public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector, Window window) {
@@ -48,12 +52,14 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         paths.add(new Draw(path, paint));
         initPaint();
         this.window = window;
+        pathinterface = (PathInterface) context;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         for (Draw d : paths)
             canvas.drawPath(d.getPath(), d.getPaint());
+        pathinterface.onDataReceived(paths,true);
     }
 
     @Override
@@ -186,6 +192,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
+        pathinterface.onDataReceived(paths,false);
         invalidate();
     }
 
@@ -207,6 +214,12 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     public void setContrast(double contrast) {
         for (Draw d : paths)
             d.setContrast(contrast);
+        invalidate();
+    }
+
+    public void setPaths(ArrayList<Draw> paths){
+        paths.clear();
+        this.paths = paths;
         invalidate();
     }
 }
