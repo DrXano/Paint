@@ -13,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import interfaces.gndListener;
+
 public class GetNameDialog extends AppCompatDialogFragment {
 
+    gndListener listener;
     private EditText drawname;
-    private gndListener listener;
 
     @NonNull
     @Override
@@ -29,20 +31,20 @@ public class GetNameDialog extends AppCompatDialogFragment {
         drawname = v.findViewById(R.id.canvasname);
 
         builder.setView(v)
-        .setTitle("Pick a name for your draw")
-        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                listener.getName(null);
-            }
-        })
-        .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = drawname.getText().toString();
-                listener.getName(name);
-            }
-        });
+                .setTitle("Pick a name for your draw")
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.saveWithName(null);
+                    }
+                })
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String name = drawname.getText().toString();
+                        listener.saveWithName(name);
+                    }
+                });
 
         return builder.create();
     }
@@ -56,9 +58,5 @@ public class GetNameDialog extends AppCompatDialogFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement gndListener");
         }
-    }
-
-    public interface gndListener {
-        void getName(String drawname);
     }
 }

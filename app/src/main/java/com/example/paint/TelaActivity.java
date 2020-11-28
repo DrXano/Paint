@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,14 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import interfaces.PathInterface;
+import interfaces.CanvasInterface;
+import interfaces.gndListener;
 
-public class TelaActivity extends AppCompatActivity implements GetNameDialog.gndListener, PathInterface {
+public class TelaActivity extends AppCompatActivity implements gndListener {
 
     public static final String SAVED_CANVAS = "savedcanvas";
 
@@ -30,11 +29,12 @@ public class TelaActivity extends AppCompatActivity implements GetNameDialog.gnd
     private static final int REQUEST_CODE = 1;
 
     int color;
-    Fragment canvas = new Canvas();
+    Fragment canvas;
     Fragment palette = new Palette();
     Fragment map = new MapsFragment();
     Fragment currenttt;
     FirebaseDatabase database;
+    private CanvasInterface listener;
     private SharedPreferences.Editor editor;
     private SharedPreferences prefs;
     private boolean hasDraw = false;
@@ -51,6 +51,9 @@ public class TelaActivity extends AppCompatActivity implements GetNameDialog.gnd
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        canvas = new Canvas();
+        setListener((CanvasInterface) canvas);
 
         this.prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
         this.editor = this.prefs.edit();
@@ -147,23 +150,15 @@ public class TelaActivity extends AppCompatActivity implements GetNameDialog.gnd
                 }
                 return true;
             case R.id.save:
-                if (this.currenttt instanceof Canvas) {
-                    getNameFromUser();
-                }
+                GetNameDialog gnd = new GetNameDialog();
+                gnd.show(getSupportFragmentManager(), "draw name dialog");
                 return true;
             case R.id.load:
-                if (this.currenttt instanceof Canvas) {
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                }
+                listener.load();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void getNameFromUser() {
-        GetNameDialog gnd = new GetNameDialog();
-        gnd.show(getSupportFragmentManager(),"draw name dialog");
     }
 
     @Override
@@ -179,49 +174,12 @@ public class TelaActivity extends AppCompatActivity implements GetNameDialog.gnd
         }
     }
 
-    @Override
-    public void getName(String drawname) {
-        if(drawname != null){
-            if(drawname.length() > 20) {
-                Toast.makeText(this, "The name is to big", Toast.LENGTH_SHORT).show();
-            }else if(drawname.length() <= 0){
-                Toast.makeText(this, "Please pick a name", Toast.LENGTH_SHORT).show();
-            }else{
-                if(this.hasDraw){
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(drawname);
-                    mDatabase.setValue(new savedDraw(drawname,this.paths));
-                    Toast.makeText(this, drawname + " was saved", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this, "There is no draw to be saved", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }else{
-            Toast.makeText(this, "No name was picked", Toast.LENGTH_SHORT).show();
-        }
+    public void setListener(CanvasInterface listener) {
+        this.listener = listener;
     }
 
     @Override
-    public void onDataReceived(ArrayList<Draw> paths, boolean hasDraw) {
-        if(!this.paths.isEmpty())
-            this.paths.clear();
-        this.paths = new ArrayList<>(paths);
-        this.hasDraw = hasDraw;
-    }
-
-    public class savedDraw{
-        private String nome;
-        private ArrayList<Draw> paths;
-        public savedDraw(String nome, ArrayList<Draw> paths){
-            this.nome = nome;
-            this.paths = paths;
-        }
-
-        public String getNome(){
-            return this.nome;
-        }
-
-        public ArrayList<Draw> getPaths(){
-            return this.paths;
-        }
+    public void saveWithName(String drawname) {
+        listener.save(drawname);
     }
 }

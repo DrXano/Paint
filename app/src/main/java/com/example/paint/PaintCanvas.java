@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import interfaces.PathInterface;
-
 public class PaintCanvas extends View implements View.OnTouchListener {
 
     private Paint paint;
@@ -27,19 +25,17 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     private GestureDetector mGestureDetector;
     private ContentResolver resolver;
     private Window window;
-    PathInterface pathinterface;
 
     public PaintCanvas(Context context, AttributeSet attrs, Window window) {
         super(context, attrs);
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
         paint = new Paint();
-        path = new Path();
+        path = new SerialPath();
         paths.add(new Draw(path, paint));
         initPaint();
         this.window = window;
         this.resolver = context.getContentResolver();
-        pathinterface = (PathInterface) context;
     }
 
     public PaintCanvas(Context context, AttributeSet attrs, GestureDetector mGestureDetector, Window window) {
@@ -48,18 +44,16 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
         paint = new Paint();
-        path = new Path();
+        path = new SerialPath();
         paths.add(new Draw(path, paint));
         initPaint();
         this.window = window;
-        pathinterface = (PathInterface) context;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         for (Draw d : paths)
-            canvas.drawPath(d.getPath(), d.getPaint());
-        pathinterface.onDataReceived(paths,true);
+            canvas.drawPath(d.getP(), d.getPaint());
     }
 
     @Override
@@ -117,7 +111,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         }
 
         Paint newPaint = new Paint();
-        Path newPath = new Path();
+        SerialPath newPath = new SerialPath();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -144,7 +138,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
             toast.show();
         }
         Paint newPaint = new Paint();
-        Path newPath = new Path();
+        SerialPath newPath = new SerialPath();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(width);
@@ -159,7 +153,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
 
     public void changeLineColor(int color) {
         Paint newPaint = new Paint();
-        Path newPath = new Path();
+        SerialPath newPath = new SerialPath();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -179,7 +173,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
 
          */
         Paint newPaint = new Paint();
-        Path newPath = new Path();
+        SerialPath newPath = new SerialPath();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -192,7 +186,6 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         paths.add(new Draw(newPath, newPaint));
         this.paint = newPaint;
         this.path = newPath;
-        pathinterface.onDataReceived(paths,false);
         invalidate();
     }
 
@@ -217,7 +210,11 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         invalidate();
     }
 
-    public void setPaths(ArrayList<Draw> paths){
+    public ArrayList<Draw> getPaths() {
+        return this.paths;
+    }
+
+    public void setPaths(ArrayList<Draw> paths) {
         paths.clear();
         this.paths = paths;
         invalidate();

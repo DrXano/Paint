@@ -1,6 +1,9 @@
 package com.example.paint;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -8,18 +11,30 @@ import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
-import androidx.lifecycle.ViewModelProvider;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import interfaces.CanvasInterface;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Canvas#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Canvas extends Fragment {
+public class Canvas extends Fragment implements CanvasInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +44,7 @@ public class Canvas extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private PaintCanvas paintCanvas;
 
     public Canvas() {
         // Required empty public constructor
@@ -96,6 +112,56 @@ public class Canvas extends Fragment {
             }
         });
 
+        this.paintCanvas = paintCanvas;
         return paintCanvas;
+    }
+
+    public void saveDraw(final String drawname) {
+
+        if (drawname != null) {
+            if (drawname.length() > 20) {
+                Toast.makeText(getActivity(), "The name is to big", Toast.LENGTH_SHORT).show();
+            } else if (drawname.length() <= 0) {
+                Toast.makeText(getActivity(), "Please pick a name", Toast.LENGTH_SHORT).show();
+            } else {
+                DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+                //SavedDraw draw = new SavedDraw(drawname, this.paintCanvas.getPaths());
+
+                List<Draw> paths = this.paintCanvas.getPaths();
+
+                Map<String, Draw> canvas = new HashMap<>();
+                for(int i = 0; i < paths.size(); i++){
+                    canvas.put(i+"",paths.get(i));
+                }
+
+                mFirebaseDatabaseReference.child("draws").child(drawname).push().setValue(canvas, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error == null) {
+                            Toast.makeText(getActivity(), drawname + " was saved", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "There was an error saving your draw", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        } else {
+            Toast.makeText(getActivity(), "No name was picked", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loadDraw() {
+        Toast.makeText(getActivity(), "The load button works", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void save(String name) {
+        this.saveDraw(name);
+    }
+
+    @Override
+    public void load() {
+        this.loadDraw();
     }
 }
