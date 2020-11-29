@@ -152,6 +152,7 @@ public class Canvas extends Fragment implements CanvasInterface {
     }
 
     public void loadDraw() {
+        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         Toast.makeText(getActivity(), "The load button works", Toast.LENGTH_SHORT).show();
     }
 

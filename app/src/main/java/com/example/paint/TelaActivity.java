@@ -1,5 +1,6 @@
 package com.example.paint;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -7,16 +8,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.CanvasInterface;
 import interfaces.gndListener;
@@ -154,11 +164,57 @@ public class TelaActivity extends AppCompatActivity implements gndListener {
                 gnd.show(getSupportFragmentManager(), "draw name dialog");
                 return true;
             case R.id.load:
-                listener.load();
+                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+                mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChild("draws")){
+                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("draws");
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    List<String> names = new ArrayList<>();
+                                    for(DataSnapshot ds : snapshot.getChildren()) {
+                                        names.add(ds.getKey());
+                                    }
+                                    chooseDraw(names);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "There are no Draws", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+                //listener.load();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void chooseDraw(final List<String> names) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose the draw to be loaded");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, names);
+
+        builder.setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"You have selected " + names.get(which),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
