@@ -17,6 +17,7 @@ public class Draw implements Serializable {
     private int SW;
     private int color;
     private int i;
+    private boolean fp;
 
     public Draw() {
     }
@@ -28,6 +29,7 @@ public class Draw implements Serializable {
 
         this.color = color;
         this.i = 0;
+        this.fp = true;
     }
 
     public Draw(Paint paint) {
@@ -47,16 +49,24 @@ public class Draw implements Serializable {
     public Path getPath() {
         Path result = new Path();
         if(this.p != null && !this.p.isEmpty()) {
-            result.moveTo((float) p.get(String.valueOf(0) + "_key").x,(float) p.get(String.valueOf(0) + "_key").y);
+            result.moveTo((float) p.get(String.valueOf(0) + "_key").x,(float)p.get(String.valueOf(0) + "_key").y);
             for (int j = 1; j < p.size(); j++) {
-                result.lineTo((float) p.get(String.valueOf(j) + "_key").x,(float) p.get(String.valueOf(j) + "_key").y);
+                Point temp = p.get(String.valueOf(j) + "_key");
+                assert temp != null;
+                if(temp.isFirstpoint()){
+                    result.moveTo((float)temp.x,(float)temp.y);
+                }else{
+                    result.lineTo((float)temp.x,(float)temp.y);
+                }
             }
         }
         return result;
     }
     @Exclude
-    public void addPoint(Point point){
+    public void addPoint(float eventX, float eventY){
+        Point point = new Point(eventX,eventY,this.fp);
         this.p.put(String.valueOf(this.i) + "_key",point);
+        this.fp = false;
         this.i++;
     }
 
@@ -154,5 +164,10 @@ public class Draw implements Serializable {
 
     public void setSW(int SW) {
         this.SW = SW;
+    }
+
+    @Exclude
+    public void lift() {
+        this.fp = true;
     }
 }

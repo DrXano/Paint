@@ -77,13 +77,14 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 path.moveTo(eventX, eventY);// updates the path initial point
-                this.curr.addPoint(new Point(eventX,eventY));
+                this.curr.addPoint(eventX,eventY);
                 return true;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(eventX, eventY);// makes a line to the point each time this event is fired
-                this.curr.addPoint(new Point(eventX,eventY));
+                this.curr.addPoint(eventX,eventY);
                 break;
             case MotionEvent.ACTION_UP:// when you lift your finger
+                this.curr.lift();
                 performClick();
                 break;
             default:

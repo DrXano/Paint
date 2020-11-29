@@ -156,10 +156,6 @@ public class Canvas extends Fragment implements CanvasInterface {
 
     public void loadDraw(String name) {
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("draws").child(name);
-        //Query q = mFirebaseDatabaseReference;
-
-        //mFirebaseDatabaseReference.addListenerForSingleValueEvent();
-
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -182,35 +178,6 @@ public class Canvas extends Fragment implements CanvasInterface {
             }
         });
         Toast.makeText(getActivity(), name + " loaded", Toast.LENGTH_LONG).show();
-    }
-
-    private List<Draw> parseInfo(List canv) {
-        List<Draw> result = new ArrayList<>();
-        for(Object m: canv){
-            Map can = (Map) m;
-            Draw d = new Draw();
-            long n = (long) can.get("color");
-            d.setColor((int)n);
-            long e = (long) can.get("i");
-            d.setI((int)e);
-            long s = (long)can.get("sw");
-            d.setSW((int) s);
-            Map<String, Point> points = parsePoints((List) can.get("p"));
-            d.setP((HashMap<String, Point>) points);
-        }
-        return result;
-    }
-
-    private Map<String, Point> parsePoints(List p) {
-        Map<String, Point> points = new HashMap<>();
-        int i = 0;
-        for(Object m: p){
-            Map can = (Map) m;
-            double x = (double) can.get("x");
-            double y = (double) can.get("y");
-            points.put(i+"",new Point(x,y));
-        }
-        return points;
     }
 
     @Override
