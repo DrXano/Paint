@@ -1,9 +1,6 @@
 package com.example.paint;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -22,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -126,18 +124,21 @@ public class Canvas extends Fragment implements CanvasInterface {
             } else if (drawname.length() <= 0) {
                 Toast.makeText(getActivity(), "Please pick a name", Toast.LENGTH_SHORT).show();
             } else {
-                DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("draws");
 
-                //SavedDraw draw = new SavedDraw(drawname, this.paintCanvas.getPaths());
+                SavedDraw draw = new SavedDraw(drawname, this.paintCanvas.getPaths());
 
+                /*
                 List<Draw> paths = this.paintCanvas.getPaths();
 
                 Map<String, Draw> canvas = new HashMap<>();
                 for(int i = 0; i < paths.size(); i++){
                     canvas.put(i+"",paths.get(i));
                 }
+                */
 
-                mFirebaseDatabaseReference.child("draws").child(drawname).push().setValue(canvas, new DatabaseReference.CompletionListener() {
+
+                mFirebaseDatabaseReference.child(drawname).setValue(draw, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         if (error == null) {
@@ -154,13 +155,34 @@ public class Canvas extends Fragment implements CanvasInterface {
     }
 
     public void loadDraw(String name) {
-        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("draws").child(name);
+        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("draws").child(name);
+        //Query q = mFirebaseDatabaseReference;
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Map<String, Draw> canv = (Map<String, Draw>) snapshot.getValue();
-                paintCanvas.setPaths(new ArrayList<>(canv.values()));
-                Toast.makeText(getActivity(), "size: " + canv.get(0+"").getP().size(), Toast.LENGTH_LONG).show();
+                if(snapshot.exists()) {
+
+                        SavedDraw sd = snapshot.getValue(SavedDraw.class);
+
+                        String name = sd.getName();
+                        List<Draw> draws = new ArrayList<Draw>(sd.getPaths().values());
+                        //List canv = (List) snapshot.getChildren().iterator().next().getValue();
+                        /*
+                        Map can = (Map) canv.get(0);
+                        List ij = (List) can.get("p");
+                        Map point = (Map) ij.get(0);
+
+                        List<Draw> parsed = parseInfo(canv);
+                        */
+
+
+                        //Toast.makeText(getActivity(), draws.toString(), Toast.LENGTH_LONG).show();
+
+                    paintCanvas.setPaths(new ArrayList<>(draws));
+                    //Toast.makeText(getActivity(), "size: " + canv.get(0 + "").getP().size(), Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity(), "No data found", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -169,6 +191,35 @@ public class Canvas extends Fragment implements CanvasInterface {
             }
         });
         //Toast.makeText(getActivity(), name + " loaded", Toast.LENGTH_LONG).show();
+    }
+
+    private List<Draw> parseInfo(List canv) {
+        List<Draw> result = new ArrayList<>();
+        for(Object m: canv){
+            Map can = (Map) m;
+            Draw d = new Draw();
+            long n = (long) can.get("color");
+            d.setColor((int)n);
+            long e = (long) can.get("i");
+            d.setI((int)e);
+            long s = (long)can.get("sw");
+            d.setSW((int) s);
+            Map<String, Point> points = parsePoints((List) can.get("p"));
+            d.setP((HashMap<String, Point>) points);
+        }
+        return result;
+    }
+
+    private Map<String, Point> parsePoints(List p) {
+        Map<String, Point> points = new HashMap<>();
+        int i = 0;
+        for(Object m: p){
+            Map can = (Map) m;
+            double x = (double) can.get("x");
+            double y = (double) can.get("y");
+            points.put(i+"",new Point(x,y));
+        }
+        return points;
     }
 
     @Override

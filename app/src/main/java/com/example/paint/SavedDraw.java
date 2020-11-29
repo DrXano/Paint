@@ -12,7 +12,7 @@ import java.util.Map;
 public class SavedDraw implements Serializable {
 
     public String name;
-    public Map<String,Draw> paths;
+    public HashMap<String,Draw> paths;
 
     public SavedDraw() {
     }
@@ -21,7 +21,7 @@ public class SavedDraw implements Serializable {
         this.name = name;
         this.paths = new HashMap<>();
         for(int i = 0; i < paths.size(); i++){
-            this.paths.put(i+"",paths.get(i));
+            this.paths.put(String.valueOf(i) + "_key",paths.get(i));
         }
     }
 
@@ -33,17 +33,15 @@ public class SavedDraw implements Serializable {
         this.name = name;
     }
 
-    public List<Draw> getPaths() {
-        return new LinkedList<>(this.paths.values());
+    public HashMap<String,Draw> getPaths() {
+        return this.paths;
     }
 
-    public void setPaths(List<Draw> paths) {
-        this.paths = new HashMap<>();
-        for(int i = 0; i < paths.size(); i++){
-            this.paths.put(i+"",paths.get(i));
-        }
+    public void setPaths(HashMap<String,Draw> paths) {
+        this.paths = paths;
     }
 
+    @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);

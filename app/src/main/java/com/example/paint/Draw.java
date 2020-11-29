@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class Draw implements Serializable {
 
-    private Map<String,Point> p;
+    private HashMap<String,Point> p;
     private int SW;
     private int color;
     private int i;
@@ -47,16 +47,16 @@ public class Draw implements Serializable {
     public Path getPath() {
         Path result = new Path();
         if(!this.p.isEmpty()) {
-            result.moveTo((float) p.get(0+"").x,(float) p.get(0+"").y);
+            result.moveTo((float) p.get(String.valueOf(0) + "_key").x,(float) p.get(String.valueOf(0) + "_key").y);
             for (int j = 1; j < p.size(); j++) {
-                result.lineTo((float) p.get(j+"").x,(float) p.get(j+"").y);
+                result.lineTo((float) p.get(String.valueOf(j) + "_key").x,(float) p.get(String.valueOf(j) + "_key").y);
             }
         }
         return result;
     }
     @Exclude
     public void addPoint(Point point){
-        this.p.put(this.i+"",point);
+        this.p.put(String.valueOf(this.i) + "_key",point);
         this.i++;
     }
 
@@ -132,12 +132,12 @@ public class Draw implements Serializable {
         return color;
     }
 
-    public void setP(Map<String,Point> p) {
+    public void setP(HashMap<String,Point> p) {
         p = new HashMap<>();
         this.p = p;
     }
 
-    public Map<String,Point> getP(){
+    public HashMap<String,Point> getP(){
         return this.p;
     }
 
