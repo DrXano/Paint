@@ -20,6 +20,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
 
     private Paint paint;
     private Path path;
+    private Draw curr;
     private ArrayList<Draw> paths = new ArrayList<>();
     private int backGroundColor = getResources().getColor(R.color.white);
     private GestureDetector mGestureDetector;
@@ -31,8 +32,9 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
         paint = new Paint();
-        path = new SerialPath();
-        paths.add(new Draw(path, paint));
+        path = new Path();
+        this.curr = new Draw(paint);
+        paths.add(this.curr);
         initPaint();
         this.window = window;
         this.resolver = context.getContentResolver();
@@ -44,8 +46,9 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         setOnTouchListener(this);
         setBackgroundColor(backGroundColor);
         paint = new Paint();
-        path = new SerialPath();
-        paths.add(new Draw(path, paint));
+        path = new Path();
+        this.curr = new Draw(paint);
+        paths.add(this.curr);
         initPaint();
         this.window = window;
     }
@@ -53,7 +56,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         for (Draw d : paths)
-            canvas.drawPath(d.getP(), d.getPaint());
+            canvas.drawPath(d.getPath(), d.getPaint());
     }
 
     @Override
@@ -74,9 +77,11 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 path.moveTo(eventX, eventY);// updates the path initial point
+                this.curr.addPoint(new Point(eventX,eventY));
                 return true;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(eventX, eventY);// makes a line to the point each time this event is fired
+                this.curr.addPoint(new Point(eventX,eventY));
                 break;
             case MotionEvent.ACTION_UP:// when you lift your finger
                 performClick();
@@ -111,7 +116,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         }
 
         Paint newPaint = new Paint();
-        SerialPath newPath = new SerialPath();
+        Path newPath = new Path();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -119,7 +124,8 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         newPaint.setStyle(style);
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath, newPaint));
+        this.curr = new Draw(newPaint);
+        paths.add(this.curr);
         this.paint = newPaint;
         this.path = newPath;
     }
@@ -138,7 +144,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
             toast.show();
         }
         Paint newPaint = new Paint();
-        SerialPath newPath = new SerialPath();
+        Path newPath = new Path();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(width);
@@ -146,14 +152,15 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         newPaint.setStyle(this.paint.getStyle());
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath, newPaint));
+        this.curr = new Draw(newPaint);
+        paths.add(this.curr);
         this.paint = newPaint;
         this.path = newPath;
     }
 
     public void changeLineColor(int color) {
         Paint newPaint = new Paint();
-        SerialPath newPath = new SerialPath();
+        Path newPath = new Path();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -161,7 +168,8 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         newPaint.setStyle(this.paint.getStyle());
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.add(new Draw(newPath, newPaint));
+        this.curr = new Draw(newPaint);
+        paths.add(this.curr);
         this.paint = newPaint;
         this.path = newPath;
     }
@@ -173,7 +181,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
 
          */
         Paint newPaint = new Paint();
-        SerialPath newPath = new SerialPath();
+        Path newPath = new Path();
 
         newPaint.setAntiAlias(true);
         newPaint.setStrokeWidth(this.paint.getStrokeWidth());
@@ -183,7 +191,8 @@ public class PaintCanvas extends View implements View.OnTouchListener {
 
         paths.clear();
 
-        paths.add(new Draw(newPath, newPaint));
+        this.curr = new Draw(newPaint);
+        paths.add(this.curr);
         this.paint = newPaint;
         this.path = newPath;
         invalidate();
@@ -215,8 +224,24 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     }
 
     public void setPaths(ArrayList<Draw> paths) {
+
+        Paint newPaint = new Paint();
+        Path newPath = new Path();
+
+        newPaint.setAntiAlias(true);
+        newPaint.setStrokeWidth(this.paint.getStrokeWidth());
+        newPaint.setColor(this.paint.getColor());
+        newPaint.setStyle(this.paint.getStyle());
+        newPaint.setStrokeJoin(this.paint.getStrokeJoin());
+
         paths.clear();
         this.paths = paths;
+
+        this.curr = new Draw(newPaint);
+        this.paths.add(this.curr);
+        this.paint = newPaint;
+        this.path = newPath;
+
         invalidate();
     }
 }

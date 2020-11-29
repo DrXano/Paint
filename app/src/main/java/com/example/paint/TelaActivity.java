@@ -209,7 +209,7 @@ public class TelaActivity extends AppCompatActivity implements gndListener {
         builder.setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"You have selected " + names.get(which),Toast.LENGTH_LONG).show();
+                listener.load(names.get(which));
             }
         });
 

@@ -18,9 +18,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,9 +153,22 @@ public class Canvas extends Fragment implements CanvasInterface {
         }
     }
 
-    public void loadDraw() {
-        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        Toast.makeText(getActivity(), "The load button works", Toast.LENGTH_SHORT).show();
+    public void loadDraw(String name) {
+        DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("draws").child(name);
+        mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map<String, Draw> canv = (Map<String, Draw>) snapshot.getValue();
+                paintCanvas.setPaths(new ArrayList<>(canv.values()));
+                Toast.makeText(getActivity(), "size: " + canv.get(0+"").getP().size(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //Toast.makeText(getActivity(), name + " loaded", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -162,7 +177,7 @@ public class Canvas extends Fragment implements CanvasInterface {
     }
 
     @Override
-    public void load() {
-        this.loadDraw();
+    public void load(String name) {
+        this.loadDraw(name);
     }
 }

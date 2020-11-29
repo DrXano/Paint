@@ -8,56 +8,64 @@ import android.graphics.Path;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Draw implements Serializable {
 
-    private SerialPath p;
-    private int StrokeWidth;
+    private Map<String,Point> p;
+    private int SW;
     private int color;
+    private int i;
 
     public Draw() {
     }
 
-    public Draw(Path p, int StrokeWidth, int color){
-        this.p = (SerialPath) p;
+    public Draw(int SW, int color){
+        this.p = new HashMap<>();
 
-        if(StrokeWidth == 20f){
-            this.StrokeWidth = 1;
-        }else if(StrokeWidth == 90f){
-            this.StrokeWidth = 2;
-        }else{
-            this.StrokeWidth = 1;
-        }
+        this.SW = SW;
 
         this.color = color;
+        this.i = 0;
     }
 
-    public Draw(Path path, Paint paint) {
-
+    public Draw(Paint paint) {
+        this.p = new HashMap<>();
         if(paint.getStrokeWidth() == 20f){
-            this.StrokeWidth = 1;
+            this.SW = 1;
         }else if(paint.getStrokeWidth() == 90f){
-            this.StrokeWidth = 2;
+            this.SW = 2;
         }else{
-            this.StrokeWidth = 1;
+            this.SW = 1;
         }
         this.color = paint.getColor();
-        this.p = (SerialPath) path;
-
+        this.i = 0;
     }
 
-    public Path getP() {
-        return this.p;
+    @Exclude
+    public Path getPath() {
+        Path result = new Path();
+        if(!this.p.isEmpty()) {
+            result.moveTo((float) p.get(0+"").x,(float) p.get(0+"").y);
+            for (int j = 1; j < p.size(); j++) {
+                result.lineTo((float) p.get(j+"").x,(float) p.get(j+"").y);
+            }
+        }
+        return result;
     }
-
+    @Exclude
+    public void addPoint(Point point){
+        this.p.put(this.i+"",point);
+        this.i++;
+    }
 
     @Exclude
     public Paint getPaint() {
         Paint p = new Paint();
         p.setAntiAlias(true);
 
-
-        if(this.StrokeWidth == 1){
+        if(this.SW == 1){
             p.setStrokeWidth(20f);
         }else{
             p.setStrokeWidth(90f);
@@ -73,9 +81,9 @@ public class Draw implements Serializable {
     @Exclude
     public void setPaint(Paint paint) {
         if(paint.getStrokeWidth() == 20f){
-            this.StrokeWidth = 1;
+            this.SW = 1;
         }else{
-            this.StrokeWidth = 2;
+            this.SW = 2;
         }
         this.color = paint.getColor();
     }
@@ -116,27 +124,36 @@ public class Draw implements Serializable {
         this.color = Color.argb(A,R,G,B);
     }
 
-    public float getStrokeWidth() {
-        if(this.StrokeWidth == 1){
-            return 20f;
-        }else{
-            return 90f;
-        }
+    public int getSW() {
+        return this.SW;
     }
 
     public int getColor() {
         return color;
     }
 
-    public void setStrokeWidth(float strokeWidth) {
-        if(strokeWidth == 20f){
-            this.StrokeWidth = 1;
-        }else{
-            this.StrokeWidth = 2;
-        }
+    public void setP(Map<String,Point> p) {
+        p = new HashMap<>();
+        this.p = p;
     }
 
-    public void setP(Path p) {
-        this.p = (SerialPath) p;
+    public Map<String,Point> getP(){
+        return this.p;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        SW = strokeWidth;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public void setSW(int SW) {
+        this.SW = SW;
     }
 }
