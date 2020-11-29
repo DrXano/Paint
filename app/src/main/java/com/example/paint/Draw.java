@@ -46,7 +46,7 @@ public class Draw implements Serializable {
     @Exclude
     public Path getPath() {
         Path result = new Path();
-        if(!this.p.isEmpty()) {
+        if(this.p != null && !this.p.isEmpty()) {
             result.moveTo((float) p.get(String.valueOf(0) + "_key").x,(float) p.get(String.valueOf(0) + "_key").y);
             for (int j = 1; j < p.size(); j++) {
                 result.lineTo((float) p.get(String.valueOf(j) + "_key").x,(float) p.get(String.valueOf(j) + "_key").y);
@@ -133,7 +133,6 @@ public class Draw implements Serializable {
     }
 
     public void setP(HashMap<String,Point> p) {
-        p = new HashMap<>();
         this.p = p;
     }
 

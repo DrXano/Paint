@@ -224,8 +224,6 @@ public class PaintCanvas extends View implements View.OnTouchListener {
     }
 
     public void setPaths(ArrayList<Draw> paths) {
-        /*
-
         Paint newPaint = new Paint();
         Path newPath = new Path();
 
@@ -235,7 +233,7 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         newPaint.setStyle(this.paint.getStyle());
         newPaint.setStrokeJoin(this.paint.getStrokeJoin());
 
-        paths.clear();
+        this.paths.clear();
         this.paths = paths;
 
         this.curr = new Draw(newPaint);
@@ -244,10 +242,5 @@ public class PaintCanvas extends View implements View.OnTouchListener {
         this.path = newPath;
 
         invalidate();
-        */
-        for(Draw d:paths){
-            int num = (int) d.getI();
-            Toast.makeText(getContext(), "size " + d.getI(), Toast.LENGTH_LONG).show();
-        }
     }
 }

@@ -157,29 +157,20 @@ public class Canvas extends Fragment implements CanvasInterface {
     public void loadDraw(String name) {
         DatabaseReference mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("draws").child(name);
         //Query q = mFirebaseDatabaseReference;
+
+        //mFirebaseDatabaseReference.addListenerForSingleValueEvent();
+
         mFirebaseDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
 
-                        SavedDraw sd = snapshot.getValue(SavedDraw.class);
+                    SavedDraw sd = snapshot.getValue(SavedDraw.class);
 
-                        String name = sd.getName();
-                        List<Draw> draws = new ArrayList<Draw>(sd.getPaths().values());
-                        //List canv = (List) snapshot.getChildren().iterator().next().getValue();
-                        /*
-                        Map can = (Map) canv.get(0);
-                        List ij = (List) can.get("p");
-                        Map point = (Map) ij.get(0);
-
-                        List<Draw> parsed = parseInfo(canv);
-                        */
-
-
-                        //Toast.makeText(getActivity(), draws.toString(), Toast.LENGTH_LONG).show();
+                    String name = sd.getName();
+                    List<Draw> draws = new ArrayList<Draw>(sd.getPaths().values());
 
                     paintCanvas.setPaths(new ArrayList<>(draws));
-                    //Toast.makeText(getActivity(), "size: " + canv.get(0 + "").getP().size(), Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getActivity(), "No data found", Toast.LENGTH_LONG).show();
                 }
@@ -190,7 +181,7 @@ public class Canvas extends Fragment implements CanvasInterface {
 
             }
         });
-        //Toast.makeText(getActivity(), name + " loaded", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), name + " loaded", Toast.LENGTH_LONG).show();
     }
 
     private List<Draw> parseInfo(List canv) {
